@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from "react";
+import Table from "./components/Table";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [tableData,setTableData] = useState([])
+
+    useEffect(() => {
+        fetch("http://localhost:3000/shipments")
+            .then(response => response.json())
+            .then(json => setTableData(json))
+    }, [])
+
+    return (
+        <div className="mr-5 ml-5 mt-5">
+            <Table tableData={tableData}/>
+        </div>
+    );
 }
 
 export default App;
